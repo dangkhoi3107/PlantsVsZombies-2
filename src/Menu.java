@@ -4,9 +4,6 @@ import javax.swing.*;
 
 public class Menu extends JPanel {
 
-    /**
-     * Creates new form Menu
-     */
     Image bgImage;
     public Menu() {
         initComponents();
