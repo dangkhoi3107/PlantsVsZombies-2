@@ -121,7 +121,7 @@ public class GamePanel extends JLayeredPane implements MouseMotionListener {
         advancerTimer = new Timer(60,(ActionEvent e) -> advance());
         advancerTimer.start();
 
-        sunProducer = new Timer(5000,(ActionEvent e) -> {
+        sunProducer = new Timer(1000,(ActionEvent e) -> {
             Random rnd = new Random();
             Sun sta = new Sun(this,rnd.nextInt(800)+100,0,rnd.nextInt(300)+200);
             activeSuns.add(sta);
@@ -129,7 +129,7 @@ public class GamePanel extends JLayeredPane implements MouseMotionListener {
         });
         sunProducer.start();
 
-        zombieProducer = new Timer(7000,(ActionEvent e) -> {
+        zombieProducer = new Timer(5000,(ActionEvent e) -> {        //7000
             Random rnd = new Random();
             LevelData lvl = new LevelData();
             String [] Level = lvl.Level[Integer.parseInt(lvl.Lvl)-1];
@@ -146,7 +146,7 @@ public class GamePanel extends JLayeredPane implements MouseMotionListener {
         });
         zombieProducer.start();
 
-        zombieSpawn = new Timer(1500,(ActionEvent e) -> {
+        zombieSpawn = new Timer(1000,(ActionEvent e) -> {       //1500
             Random rnd = new Random();
             LevelData lvl = new LevelData();
             String [] Level = lvl.Level[Integer.parseInt(lvl.Lvl)-1];
@@ -316,21 +316,25 @@ public class GamePanel extends JLayeredPane implements MouseMotionListener {
     public static void setProgress(int num) {
         progress = progress + num;
         System.out.println(progress);
-        if(progress == 150) {
+    
+        if (progress == 150) {
             zombieSpawn.start();
         }
-        if(progress>=500) {
-           if("1".equals(LevelData.Lvl)) {
-            JOptionPane.showMessageDialog(null,"Level Completed !!!" + '\n' + "Starting next Level");
-            GameWindow.gw.dispose();
-            LevelData.write("2");
-            GameWindow.gw = new GameWindow();
-            }  else {
-               JOptionPane.showMessageDialog(null,"Level Completed !!!" + '\n' + "More Levels will come soon !!!" + '\n' + "Resetting data");
-               LevelData.write("1");
-               System.exit(0);
-           }
-           progress = 0;
+        if (progress >= 550) {
+            zombieSpawn.stop();
+            if ("1".equals(LevelData.Lvl)) {
+                JOptionPane.showMessageDialog(null, "Level 1 completed !" + '\n' + "Next level.");
+                GameWindow.gw.dispose();
+                LevelData.write("2");
+                GameWindow.gw = new GameWindow();
+                progress = 0;
+            } else {
+                JOptionPane.showMessageDialog(null, "Level 2 completed !" + '\n' + "New levels will be updated" + '\n' + "Reset data");
+                LevelData.write("1");
+                System.exit(0);
+                progress = 0;
+            }
         }
     }
+    
 }
