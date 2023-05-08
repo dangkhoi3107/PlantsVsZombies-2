@@ -103,7 +103,8 @@ public class GamePanel extends JLayeredPane implements MouseMotionListener {
             a.setLocation(44 + (i%9)*100,109 + (i/9)*120);
             a.setAction(new PlantActionListener((i%9),(i/9)));
             colliders[i] = a;
-            add(a,new Integer(0));
+            // add(a,new Integer(0));
+            add(a, Integer.valueOf(0));
         }
 
         //colliders[0].setPlant(new FreezePeashooter(this,0,0));
@@ -125,7 +126,8 @@ public class GamePanel extends JLayeredPane implements MouseMotionListener {
             Random rnd = new Random();
             Sun sta = new Sun(this,rnd.nextInt(800)+100,0,rnd.nextInt(300)+200);
             activeSuns.add(sta);
-            add(sta,new Integer(1));
+            // add(sta,new Integer(1));
+            add(sta, Integer.valueOf(1));
         });
         sunProducer.start();
 
