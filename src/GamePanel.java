@@ -34,7 +34,7 @@ public class GamePanel extends JLayeredPane implements MouseMotionListener {
     Timer redrawTimer;
     Timer advancerTimer;
     Timer sunProducer;
-    Timer zombieProducer;
+    static Timer zombieProducer;
     static Timer zombieSpawn;
     JLabel sunScoreboard;
 
@@ -324,6 +324,7 @@ public class GamePanel extends JLayeredPane implements MouseMotionListener {
         }
         if (progress >= 550) {
             zombieSpawn.stop();
+            zombieProducer.stop();
             if ("1".equals(LevelData.Lvl)) {
                 JOptionPane.showMessageDialog(null, "Level 1 completed !" + '\n' + "Next level.");
                 GameWindow.gw.dispose();
